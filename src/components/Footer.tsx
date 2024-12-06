@@ -12,25 +12,29 @@ export const Footer: FC = () => {
             </span>
           </div>
 
-          <div className="flex space-x-6">
-            <button
-              onClick={() => window.open('https://github.com/unknownalone', '_blank')}
-              className="p-2 rounded-lg text-gray-600 dark:text-gray-400 hover:text-purple-500 dark:hover:text-purple-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition-all duration-200"
+          <div className="flex items-center space-x-4">
+            <a
+              href="https://github.com/unknownalone"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center w-12 h-12 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200"
             >
-              <Github className="w-6 h-6" />
-            </button>
-            <button
-              onClick={() => window.location.href = 'mailto:your.email@gmail.com'}
-              className="p-2 rounded-lg text-gray-600 dark:text-gray-400 hover:text-purple-500 dark:hover:text-purple-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition-all duration-200"
+              <Github className="w-6 h-6 text-gray-600 dark:text-gray-400 hover:text-purple-500 dark:hover:text-purple-400" />
+            </a>
+            <a
+              href="mailto:your.email@gmail.com"
+              className="inline-flex items-center justify-center w-12 h-12 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200"
             >
-              <Mail className="w-6 h-6" />
-            </button>
-            <button
-              onClick={() => window.open('https://wa.me/17156573827', '_blank')}
-              className="p-2 rounded-lg text-gray-600 dark:text-gray-400 hover:text-purple-500 dark:hover:text-purple-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition-all duration-200"
+              <Mail className="w-6 h-6 text-gray-600 dark:text-gray-400 hover:text-purple-500 dark:hover:text-purple-400" />
+            </a>
+            <a
+              href="https://wa.me/17156573827"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center w-12 h-12 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200"
             >
-              <Phone className="w-6 h-6" />
-            </button>
+              <Phone className="w-6 h-6 text-gray-600 dark:text-gray-400 hover:text-purple-500 dark:hover:text-purple-400" />
+            </a>
           </div>
 
           <div className="mt-4 md:mt-0 text-gray-600 dark:text-gray-400 text-sm">

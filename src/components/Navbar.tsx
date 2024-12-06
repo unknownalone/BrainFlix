@@ -84,19 +84,30 @@ export const Navbar = React.memo(() => {
     return false;
   }, [location.pathname, activeSection]);
 
-  const navItems = useMemo(() => [...mainNavItems, 'CV'].map((item) => (
-    <button
-      key={item}
-      onClick={() => handleNavClick(item)}
-      className={`w-full text-left px-3 py-2 rounded-md text-sm font-medium transition-colors duration-150 ${
-        getIsActive(item)
-          ? 'text-primary-400 dark:text-primary-400 font-semibold'
-          : 'text-gray-700 dark:text-gray-200 hover:text-primary-400 dark:hover:text-primary-400'
-      }`}
-    >
-      {item}
-    </button>
-  )), [activeSection, handleNavClick, getIsActive]);
+  const navItems = useMemo(() => [...mainNavItems, 'CV'].map((item) => {
+    const href = item === 'Home' ? '/' : 
+                item === 'CV' ? '/cv' : 
+                `/#${item.toLowerCase()}`;
+    
+    return (
+      <a
+        key={item}
+        href={href}
+        onClick={(e) => {
+          e.preventDefault();
+          handleNavClick(item);
+          setIsOpen(false);
+        }}
+        className={`block w-full px-4 py-3 text-base font-medium transition-colors duration-150 ${
+          getIsActive(item)
+            ? 'bg-primary-50 dark:bg-gray-800 text-primary-400 dark:text-primary-400'
+            : 'text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-800'
+        }`}
+      >
+        {item}
+      </a>
+    );
+  }), [activeSection, handleNavClick, getIsActive]);
 
   const menuButton = useMemo(() => (
     <motion.button
@@ -194,50 +205,39 @@ export const Navbar = React.memo(() => {
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            className="md:hidden fixed top-16 left-0 right-0 bg-white dark:bg-gray-900 shadow-lg"
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
+            className="md:hidden fixed top-16 left-0 right-0 bg-white dark:bg-gray-900 shadow-lg border-t border-gray-200 dark:border-gray-700"
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.2 }}
           >
-            <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-              <div className="flex flex-col space-y-1">
-                {navItems}
-              </div>
-              <div className="flex justify-center space-x-6 pt-4 border-t border-gray-200 dark:border-gray-700 mt-4">
-                <motion.a
+            <nav className="flex flex-col py-2">
+              {navItems}
+              <div className="flex justify-center gap-6 px-4 py-3 mt-2 border-t border-gray-200 dark:border-gray-700">
+                <a
                   href="https://github.com/unknownalone"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-gray-700 dark:text-gray-200 hover:text-primary-400 dark:hover:text-primary-400 p-2"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  transition={{ type: "spring", stiffness: 400, damping: 17 }}
+                  className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800"
                 >
-                  <Github className="h-5 w-5" />
-                </motion.a>
-                <motion.a
+                  <Github className="w-5 h-5 text-gray-700 dark:text-gray-200" />
+                </a>
+                <a
                   href="mailto:your.email@gmail.com"
-                  className="text-gray-700 dark:text-gray-200 hover:text-primary-400 dark:hover:text-primary-400 p-2"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  transition={{ type: "spring", stiffness: 400, damping: 17 }}
+                  className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800"
                 >
-                  <Mail className="h-5 w-5" />
-                </motion.a>
-                <motion.a
+                  <Mail className="w-5 h-5 text-gray-700 dark:text-gray-200" />
+                </a>
+                <a
                   href="https://wa.me/17156573827"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-gray-700 dark:text-gray-200 hover:text-primary-400 dark:hover:text-primary-400 p-2"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  transition={{ type: "spring", stiffness: 400, damping: 17 }}
+                  className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800"
                 >
-                  <Phone className="h-5 w-5" />
-                </motion.a>
+                  <Phone className="w-5 h-5 text-gray-700 dark:text-gray-200" />
+                </a>
               </div>
-            </div>
+            </nav>
           </motion.div>
         )}
       </AnimatePresence>
