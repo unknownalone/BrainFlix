@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
+import { SpeedInsights } from "@vercel/speed-insights/react";
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
 import { Portfolio } from './components/Portfolio';
@@ -52,6 +53,7 @@ function AppContent() {
         </AnimatePresence>
       </main>
       <Footer />
+      <SpeedInsights />
     </div>
   );
 }
