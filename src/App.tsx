@@ -13,13 +13,13 @@ import { PageTransition } from './components/PageTransition';
 function HomePage() {
   return (
     <PageTransition>
-      <div className="relative">
+      <main className="relative">
         <Hero />
         <Portfolio />
         <About />
         <Skills />
         <Contact />
-      </div>
+      </main>
     </PageTransition>
   );
 }
@@ -38,8 +38,8 @@ function AppContent() {
         }}
       />
       
-      <div className="relative">
-        <Navbar />
+      <Navbar />
+      <main id="main-content" role="main" className="relative">
         <AnimatePresence mode="wait">
           <Routes location={location} key={location.pathname}>
             <Route path="/" element={<HomePage />} />
@@ -50,8 +50,8 @@ function AppContent() {
             } />
           </Routes>
         </AnimatePresence>
-        <Footer />
-      </div>
+      </main>
+      <Footer />
     </div>
   );
 }

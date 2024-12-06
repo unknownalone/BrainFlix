@@ -1,8 +1,13 @@
 # Security Policy
 
+## Contact Information
+
+**Primary Contact Email**: [YOUR-EMAIL]
+This email serves as the primary point of contact for all security-related communications.
+
 ## Reporting a Vulnerability
 
-If you discover a security vulnerability within this project, please send an email to [YOUR-EMAIL]. All security vulnerabilities will be promptly addressed.
+If you discover a security vulnerability within this project, please send an email to the primary contact address above. All security vulnerabilities will be promptly addressed.
 
 Please do not disclose security-related issues publicly until a fix has been announced.
 
