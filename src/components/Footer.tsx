@@ -12,28 +12,28 @@ export const Footer: FC = () => {
             </span>
           </div>
 
-          <div className="flex items-center space-x-4">
+          <div className="flex gap-8">
             <a
               href="https://github.com/unknownalone"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center w-12 h-12 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200"
+              className="flex items-center justify-center p-3 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-lg transition-colors"
             >
-              <Github className="w-6 h-6 text-gray-600 dark:text-gray-400 hover:text-purple-500 dark:hover:text-purple-400" />
+              <Github className="w-6 h-6 text-gray-600 dark:text-gray-400" />
             </a>
             <a
               href="mailto:your.email@gmail.com"
-              className="inline-flex items-center justify-center w-12 h-12 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200"
+              className="flex items-center justify-center p-3 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-lg transition-colors"
             >
-              <Mail className="w-6 h-6 text-gray-600 dark:text-gray-400 hover:text-purple-500 dark:hover:text-purple-400" />
+              <Mail className="w-6 h-6 text-gray-600 dark:text-gray-400" />
             </a>
             <a
               href="https://wa.me/17156573827"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center w-12 h-12 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200"
+              className="flex items-center justify-center p-3 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-lg transition-colors"
             >
-              <Phone className="w-6 h-6 text-gray-600 dark:text-gray-400 hover:text-purple-500 dark:hover:text-purple-400" />
+              <Phone className="w-6 h-6 text-gray-600 dark:text-gray-400" />
             </a>
           </div>
 
