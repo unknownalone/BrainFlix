@@ -60,19 +60,37 @@ export const Navbar = React.memo(() => {
       return;
     }
 
-    const element = document.getElementById(item.toLowerCase());
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+    if (item === 'CV') {
+      navigate('/cv');
+      return;
+    }
+
+    if (location.pathname !== '/') {
+      navigate('/');
+      setTimeout(() => {
+        const element = document.getElementById(item.toLowerCase());
+        element?.scrollIntoView({ behavior: 'smooth' });
+      }, 100);
+    } else {
+      const element = document.getElementById(item.toLowerCase());
+      element?.scrollIntoView({ behavior: 'smooth' });
     }
   }, [location.pathname, navigate]);
 
-  const navItems = useMemo(() => mainNavItems.map((item) => (
+  const getIsActive = useCallback((item: string) => {
+    if (item === 'Home' && location.pathname === '/' && activeSection === 'home') return true;
+    if (item === 'CV' && location.pathname === '/cv') return true;
+    if (location.pathname === '/' && activeSection === item.toLowerCase()) return true;
+    return false;
+  }, [location.pathname, activeSection]);
+
+  const navItems = useMemo(() => [...mainNavItems, 'CV'].map((item) => (
     <motion.button
       key={item}
       onClick={() => handleNavClick(item)}
       className={`px-3 py-2 rounded-md text-sm font-medium transition-colors duration-150 ${
-        activeSection === item.toLowerCase()
-          ? 'text-primary-400 dark:text-primary-400'
+        getIsActive(item)
+          ? 'text-primary-400 dark:text-primary-400 font-semibold'
           : 'text-gray-700 dark:text-gray-200 hover:text-primary-400 dark:hover:text-primary-400'
       }`}
       whileHover={{ scale: 1.05 }}
@@ -81,7 +99,7 @@ export const Navbar = React.memo(() => {
     >
       {item}
     </motion.button>
-  )), [activeSection, handleNavClick]);
+  )), [activeSection, handleNavClick, getIsActive]);
 
   const menuButton = useMemo(() => (
     <motion.button
@@ -106,11 +124,13 @@ export const Navbar = React.memo(() => {
           <div className="flex-shrink-0">
             <motion.button
               onClick={() => handleNavClick('Home')}
-              className="text-2xl font-bold text-gray-900 dark:text-white"
+              className="text-2xl font-bold focus:outline-none"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
-              BrainFlix
+              <span className="bg-gradient-to-r from-primary-400 to-secondary-400 bg-clip-text text-transparent">
+                BrainFlix
+              </span>
             </motion.button>
           </div>
           
@@ -123,12 +143,16 @@ export const Navbar = React.memo(() => {
           <div className="flex items-center gap-4">
             <motion.button
               onClick={toggleTheme}
-              className="p-2 rounded-md text-gray-700 dark:text-gray-200 hover:text-primary-400 dark:hover:text-primary-400 focus:outline-none"
+              className="p-2 rounded-lg bg-primary-50 dark:bg-gray-800 hover:bg-primary-100/80 dark:hover:bg-gray-700 transition-colors duration-300 focus:outline-none"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               transition={{ type: "spring", stiffness: 400, damping: 17 }}
             >
-              {theme === 'dark' ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
+              {theme === 'dark' ? (
+                <Sun className="h-5 w-5 text-yellow-500" />
+              ) : (
+                <Moon className="h-5 w-5 text-primary-400" />
+              )}
             </motion.button>
             <div className="md:hidden">
               {menuButton}
