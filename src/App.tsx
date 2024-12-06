@@ -30,15 +30,6 @@ function AppContent() {
 
   return (
     <div className="min-h-screen bg-white dark:bg-gray-900 text-gray-900 dark:text-white transition-colors duration-1000 relative">
-      {/* Dotted texture overlay with parallax effect */}
-      <div 
-        className="fixed inset-0 bg-[radial-gradient(#A855F7_1px,transparent_1px)] [background-size:16px_16px] opacity-[0.4]"
-        style={{
-          transform: `translateY(${Math.min(window.scrollY * 0.1, 100)}px)`,
-          transition: 'transform 0.3s ease-out'
-        }}
-      />
-      
       <Navbar />
       <main id="main-content" role="main" className="relative">
         <AnimatePresence mode="wait">
@@ -54,6 +45,14 @@ function AppContent() {
       </main>
       <Footer />
       <SpeedInsights />
+      {/* Dotted texture overlay with parallax effect moved after content */}
+      <div 
+        className="fixed inset-0 -z-10 bg-[radial-gradient(#A855F7_1px,transparent_1px)] [background-size:16px_16px] opacity-[0.4] pointer-events-none"
+        style={{
+          transform: `translateY(${Math.min(window.scrollY * 0.1, 100)}px)`,
+          transition: 'transform 0.3s ease-out'
+        }}
+      />
     </div>
   );
 }
