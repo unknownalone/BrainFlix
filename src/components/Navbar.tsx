@@ -197,14 +197,47 @@ export const Navbar = React.memo(() => {
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            className="md:hidden"
+            className="md:hidden bg-white dark:bg-gray-900 shadow-lg"
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.2 }}
           >
-            <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white dark:bg-gray-900 shadow-lg">
+            <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
               {navItems}
+              <div className="flex justify-center space-x-6 pt-4 border-t border-gray-200 dark:border-gray-700">
+                <motion.a
+                  href="https://github.com/unknownalone"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-gray-700 dark:text-gray-200 hover:text-primary-400 dark:hover:text-primary-400"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  transition={{ type: "spring", stiffness: 400, damping: 17 }}
+                >
+                  <Github className="h-5 w-5" />
+                </motion.a>
+                <motion.a
+                  href="mailto:your.email@gmail.com"
+                  className="text-gray-700 dark:text-gray-200 hover:text-primary-400 dark:hover:text-primary-400"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  transition={{ type: "spring", stiffness: 400, damping: 17 }}
+                >
+                  <Mail className="h-5 w-5" />
+                </motion.a>
+                <motion.a
+                  href="https://wa.me/17156573827"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-gray-700 dark:text-gray-200 hover:text-primary-400 dark:hover:text-primary-400"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  transition={{ type: "spring", stiffness: 400, damping: 17 }}
+                >
+                  <Phone className="h-5 w-5" />
+                </motion.a>
+              </div>
             </div>
           </motion.div>
         )}
