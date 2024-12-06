@@ -1,5 +1,5 @@
 import React, { useCallback, useMemo } from 'react';
-import { Menu, X, Sun, Moon, Github, Linkedin, Twitter } from 'lucide-react';
+import { Menu, X, Sun, Moon, Github, Mail, Phone } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useTheme } from '../hooks/useTheme';
@@ -154,18 +154,16 @@ export const Navbar = React.memo(() => {
                 <Github className="h-5 w-5" />
               </motion.a>
               <motion.a
-                href="https://linkedin.com/in/yourusername"
-                target="_blank"
-                rel="noopener noreferrer"
+                href="mailto:your.email@gmail.com"
                 className="text-gray-700 dark:text-gray-200 hover:text-primary-400 dark:hover:text-primary-400"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 transition={{ type: "spring", stiffness: 400, damping: 17 }}
               >
-                <Linkedin className="h-5 w-5" />
+                <Mail className="h-5 w-5" />
               </motion.a>
               <motion.a
-                href="https://twitter.com/yourusername"
+                href="https://wa.me/17156573827"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-gray-700 dark:text-gray-200 hover:text-primary-400 dark:hover:text-primary-400"
@@ -173,7 +171,7 @@ export const Navbar = React.memo(() => {
                 whileTap={{ scale: 0.95 }}
                 transition={{ type: "spring", stiffness: 400, damping: 17 }}
               >
-                <Twitter className="h-5 w-5" />
+                <Phone className="h-5 w-5" />
               </motion.a>
             </div>
             <motion.button
