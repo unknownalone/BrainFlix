@@ -1,7 +1,7 @@
-import React from 'react';
+import type { FC } from 'react';
 import { Github, Mail, Phone } from 'lucide-react';
 
-export const Footer = () => {
+export const Footer: FC = () => {
   return (
     <footer className="bg-gray-50 dark:bg-gray-800 py-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
