@@ -1,0 +1,71 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply antialiased bg-white dark:bg-gray-900;
+  }
+
+  /* Improved form input styles */
+  input,
+  textarea,
+  select {
+    @apply bg-white dark:bg-gray-800 
+           border border-gray-200 dark:border-gray-700
+           focus:border-primary-400 dark:focus:border-primary-400
+           focus:ring-2 focus:ring-primary-400/20 dark:focus:ring-primary-400/20
+           rounded-lg
+           transition-all duration-200
+           outline-none;
+  }
+}
+
+@layer components {
+  .glass-effect {
+    @apply bg-white/80 dark:bg-gray-900/80 backdrop-blur-md border border-primary-50/20 dark:border-white/10;
+  }
+}
+
+@layer utilities {
+  .text-gradient {
+    @apply bg-gradient-to-r from-primary-400 to-secondary-400 bg-clip-text text-transparent;
+  }
+
+  .animate-spin-slow {
+    animation: spin 8s linear infinite;
+  }
+
+  .animate-pulse-slow {
+    animation: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+
+  .dot-pattern {
+    background: 
+      radial-gradient(circle at center, rgba(168, 85, 247, 0.4) 1px, transparent 1px);
+    background-size: 16px 16px;
+  }
+
+  .bg-gradient-radial {
+    background-image: radial-gradient(circle at center, var(--tw-gradient-from) 0%, var(--tw-gradient-via) 50%, var(--tw-gradient-to) 100%);
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: .5;
+  }
+}

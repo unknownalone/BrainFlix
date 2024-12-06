@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>John Doe - Senior Software Engineer</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            padding: 40px;
+            color: #1a1a1a;
+            line-height: 1.6;
+        }
+
+        .header {
+            margin-bottom: 30px;
+            border-bottom: 2px solid #A855F7;
+            padding-bottom: 20px;
+        }
+
+        .name {
+            font-size: 32px;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 5px;
+        }
+
+        .title {
+            font-size: 20px;
+            color: #A855F7;
+            font-weight: 500;
+            margin-bottom: 15px;
+        }
+
+        .contact-info {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            font-size: 14px;
+            color: #4a4a4a;
+        }
+
+        .section {
+            margin-bottom: 25px;
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid #e5e7eb;
+            padding-bottom: 8px;
+        }
+
+        .experience-item, .education-item {
+            margin-bottom: 20px;
+            padding-left: 15px;
+            border-left: 2px solid #A855F7;
+        }
+
+        .job-title, .degree {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-bottom: 5px;
+        }
+
+        .company, .university {
+            font-size: 14px;
+            color: #A855F7;
+            font-weight: 500;
+            margin-bottom: 8px;
+        }
+
+        .date {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 8px;
+        }
+
+        .description {
+            font-size: 14px;
+            color: #4a4a4a;
+            margin-bottom: 10px;
+        }
+
+        ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        ul li {
+            font-size: 14px;
+            color: #4a4a4a;
+            margin-bottom: 5px;
+            padding-left: 15px;
+            position: relative;
+        }
+
+        ul li:before {
+            content: "•";
+            color: #A855F7;
+            position: absolute;
+            left: 0;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .skill-category {
+            margin-bottom: 15px;
+        }
+
+        .skill-category-title {
+            font-size: 15px;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-bottom: 8px;
+        }
+
+        .skill-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .skill-item {
+            font-size: 13px;
+            color: #4a4a4a;
+            padding: 4px 10px;
+            background-color: #f3f4f6;
+            border-radius: 4px;
+        }
+
+        .certifications {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        .cert-item {
+            padding-left: 15px;
+            border-left: 2px solid #A855F7;
+        }
+
+        .languages {
+            display: flex;
+            gap: 20px;
+        }
+
+        .language-item {
+            font-size: 14px;
+            color: #4a4a4a;
+        }
+
+        .social-links {
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 1px solid #e5e7eb;
+            display: flex;
+            gap: 20px;
+            font-size: 14px;
+            color: #4a4a4a;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1 class="name">John Doe</h1>
+        <div class="title">Senior Software Engineer</div>
+        <div class="contact-info">
+            <div>📧 john.doe@example.com</div>
+            <div>📱 +1 (555) 123-4567</div>
+            <div>📍 San Francisco, CA</div>
+            <div>🌐 portfolio.example.com</div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2 class="section-title">Professional Summary</h2>
+        <p class="description">
+            Senior Software Engineer with 8+ years of experience in full-stack development, specializing in React, Node.js, and cloud technologies. 
+            Proven track record of leading high-impact projects and mentoring junior developers. Strong focus on code quality, performance optimization, 
+            and building scalable applications.
+        </p>
+    </div>
+
+    <div class="section">
+        <h2 class="section-title">Professional Experience</h2>
+        <div class="experience-item">
+            <div class="job-title">Senior Software Engineer</div>
+            <div class="company">TechCorp Inc.</div>
+            <div class="date">2020 - Present</div>
+            <ul>
+                <li>Led the development of a microservices-based e-commerce platform serving 1M+ users</li>
+                <li>Implemented CI/CD pipelines reducing deployment time by 60%</li>
+                <li>Mentored 5 junior developers and conducted technical interviews</li>
+                <li>Optimized application performance resulting in 40% faster load times</li>
+            </ul>
+        </div>
+
+        <div class="experience-item">
+            <div class="job-title">Software Engineer</div>
+            <div class="company">InnovateSoft</div>
+            <div class="date">2017 - 2020</div>
+            <ul>
+                <li>Developed and maintained multiple React-based web applications</li>
+                <li>Implemented real-time features using WebSocket technology</li>
+                <li>Reduced API response times by 50% through query optimization</li>
+            </ul>
+        </div>
+
+        <div class="experience-item">
+            <div class="job-title">Junior Developer</div>
+            <div class="company">StartupHub</div>
+            <div class="date">2015 - 2017</div>
+            <ul>
+                <li>Built responsive web interfaces using React and Bootstrap</li>
+                <li>Collaborated with UX team to implement design systems</li>
+                <li>Participated in agile development processes</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2 class="section-title">Education</h2>
+        <div class="education-item">
+            <div class="degree">Master of Science in Computer Science</div>
+            <div class="university">Stanford University</div>
+            <div class="date">2013 - 2015</div>
+            <div class="description">Specialization in Machine Learning and Distributed Systems</div>
+        </div>
+
+        <div class="education-item">
+            <div class="degree">Bachelor of Science in Computer Engineering</div>
+            <div class="university">MIT</div>
+            <div class="date">2009 - 2013</div>
+            <div class="description">Minor in Mathematics • Dean's List</div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2 class="section-title">Technical Skills</h2>
+        <div class="skills-grid">
+            <div class="skill-category">
+                <div class="skill-category-title">Frontend Development</div>
+                <div class="skill-list">
+                    <span class="skill-item">React</span>
+                    <span class="skill-item">Next.js</span>
+                    <span class="skill-item">TypeScript</span>
+                    <span class="skill-item">Redux</span>
+                    <span class="skill-item">Tailwind CSS</span>
+                </div>
+            </div>
+
+            <div class="skill-category">
+                <div class="skill-category-title">Backend Development</div>
+                <div class="skill-list">
+                    <span class="skill-item">Node.js</span>
+                    <span class="skill-item">Express</span>
+                    <span class="skill-item">NestJS</span>
+                    <span class="skill-item">PostgreSQL</span>
+                    <span class="skill-item">MongoDB</span>
+                </div>
+            </div>
+
+            <div class="skill-category">
+                <div class="skill-category-title">DevOps & Tools</div>
+                <div class="skill-list">
+                    <span class="skill-item">AWS</span>
+                    <span class="skill-item">Docker</span>
+                    <span class="skill-item">Kubernetes</span>
+                    <span class="skill-item">CI/CD</span>
+                    <span class="skill-item">Git</span>
+                </div>
+            </div>
+
+            <div class="skill-category">
+                <div class="skill-category-title">Other Skills</div>
+                <div class="skill-list">
+                    <span class="skill-item">Agile</span>
+                    <span class="skill-item">Leadership</span>
+                    <span class="skill-item">System Design</span>
+                    <span class="skill-item">Architecture</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2 class="section-title">Certifications</h2>
+        <div class="certifications">
+            <div class="cert-item">
+                <div class="job-title">AWS Solutions Architect Professional</div>
+                <div class="date">Amazon Web Services • 2022</div>
+            </div>
+            <div class="cert-item">
+                <div class="job-title">Google Cloud Professional Developer</div>
+                <div class="date">Google Cloud • 2021</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2 class="section-title">Languages</h2>
+        <div class="languages">
+            <div class="language-item">English (Native)</div>
+            <div class="language-item">Spanish (Professional)</div>
+            <div class="language-item">Mandarin (Basic)</div>
+        </div>
+    </div>
+
+    <div class="social-links">
+        <div>GitHub: github.com/johndoe</div>
+        <div>LinkedIn: linkedin.com/in/johndoe</div>
+    </div>
+</body>
+</html>
