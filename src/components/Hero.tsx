@@ -7,7 +7,9 @@ export const Hero = () => {
 
   return (
     <section className="relative overflow-hidden">
-      <div className="container mx-auto px-4">
+      {/* Dotted grid background */}
+      <div className="absolute inset-0 bg-[radial-gradient(#ec4899_1px,transparent_1px)] dark:bg-[radial-gradient(#374151_1.5px,transparent_1.5px)] [background-size:16px_16px] opacity-70 dark:opacity-80" />
+      <div className="container mx-auto px-4 relative">
         <div className="flex flex-col lg:flex-row items-center justify-between py-20">
           {/* Left side content */}
           <motion.div 

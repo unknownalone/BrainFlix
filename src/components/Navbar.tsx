@@ -89,8 +89,10 @@ export const Navbar = React.memo(() => {
                 item === 'CV' ? '/cv' : 
                 `/#${item.toLowerCase()}`;
     
+    const isActive = getIsActive(item);
+    
     return (
-      <a
+      <motion.a
         key={item}
         href={href}
         onClick={(e) => {
@@ -98,14 +100,18 @@ export const Navbar = React.memo(() => {
           handleNavClick(item);
           setIsOpen(false);
         }}
-        className={`block w-full px-4 py-3 text-base font-medium transition-colors duration-150 ${
-          getIsActive(item)
-            ? 'bg-primary-50 dark:bg-gray-800 text-primary-400 dark:text-primary-400'
-            : 'text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-800'
-        }`}
+        className={`
+          px-6 py-2 rounded-full font-medium transition-all duration-300
+          ${isActive 
+            ? 'bg-purple-500 text-white shadow-md hover:bg-purple-600 hover:shadow-lg' 
+            : 'text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800'
+          }
+        `}
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.95 }}
       >
         {item}
-      </a>
+      </motion.a>
     );
   }), [activeSection, handleNavClick, getIsActive]);
 
@@ -143,7 +149,7 @@ export const Navbar = React.memo(() => {
           </div>
           
           <div className="hidden md:block">
-            <div className="ml-10 flex items-baseline space-x-4">
+            <div className="ml-10 flex items-center space-x-4">
               {navItems}
             </div>
           </div>
@@ -212,8 +218,12 @@ export const Navbar = React.memo(() => {
             transition={{ duration: 0.2 }}
           >
             <nav className="flex flex-col py-2">
-              {navItems}
-              <div className="flex justify-center gap-6 px-4 py-3 mt-2 border-t border-gray-200 dark:border-gray-700">
+              <div className="px-2 pt-2 pb-3 space-y-3 sm:px-3">
+                <div className="flex flex-col space-y-2">
+                  {navItems}
+                </div>
+              </div>
+              <div className="flex justify-center gap-6 px-4 py-4 mt-4 border-t border-gray-200 dark:border-gray-700">
                 <a
                   href="https://github.com/unknownalone"
                   target="_blank"
