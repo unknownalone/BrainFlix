@@ -1,5 +1,5 @@
 import React, { useCallback, useMemo } from 'react';
-import { Menu, X, Sun, Moon } from 'lucide-react';
+import { Menu, X, Sun, Moon, Github, Linkedin, Twitter } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useTheme } from '../hooks/useTheme';
@@ -141,6 +141,41 @@ export const Navbar = React.memo(() => {
           </div>
           
           <div className="flex items-center gap-4">
+            <div className="hidden md:flex items-center gap-4">
+              <motion.a
+                href="https://github.com/unknownalone"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-gray-700 dark:text-gray-200 hover:text-primary-400 dark:hover:text-primary-400"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                transition={{ type: "spring", stiffness: 400, damping: 17 }}
+              >
+                <Github className="h-5 w-5" />
+              </motion.a>
+              <motion.a
+                href="https://linkedin.com/in/yourusername"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-gray-700 dark:text-gray-200 hover:text-primary-400 dark:hover:text-primary-400"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                transition={{ type: "spring", stiffness: 400, damping: 17 }}
+              >
+                <Linkedin className="h-5 w-5" />
+              </motion.a>
+              <motion.a
+                href="https://twitter.com/yourusername"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-gray-700 dark:text-gray-200 hover:text-primary-400 dark:hover:text-primary-400"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                transition={{ type: "spring", stiffness: 400, damping: 17 }}
+              >
+                <Twitter className="h-5 w-5" />
+              </motion.a>
+            </div>
             <motion.button
               onClick={toggleTheme}
               className="p-2 rounded-lg bg-primary-50 dark:bg-gray-800 hover:bg-primary-100/80 dark:hover:bg-gray-700 transition-colors duration-300 focus:outline-none"
