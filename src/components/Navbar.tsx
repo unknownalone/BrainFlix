@@ -1,12 +1,12 @@
-import React from 'react';
+import React, { useCallback, useMemo } from 'react';
 import { Menu, X, Sun, Moon } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useTheme } from '../hooks/useTheme';
 
-const mainNavItems = ['Home', 'Portfolio', 'About', 'Skills', 'Contact'];
+const mainNavItems = ['Home', 'Portfolio', 'About', 'Skills', 'Contact'] as const;
 
-export const Navbar = () => {
+export const Navbar = React.memo(() => {
   const [isOpen, setIsOpen] = React.useState(false);
   const [isScrolled, setIsScrolled] = React.useState(false);
   const [activeSection, setActiveSection] = React.useState('home');
@@ -14,35 +14,42 @@ export const Navbar = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  React.useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 0);
+  const handleScroll = useCallback(() => {
+    const scrolled = window.scrollY > 0;
+    if (isScrolled !== scrolled) {
+      setIsScrolled(scrolled);
+    }
 
-      if (location.pathname === '/') {
-        const sections = mainNavItems.map(item => ({
-          id: item.toLowerCase(),
-          element: document.getElementById(item.toLowerCase())
-        }));
+    if (location.pathname === '/') {
+      const sections = mainNavItems.map(item => ({
+        id: item.toLowerCase(),
+        element: document.getElementById(item.toLowerCase())
+      }));
 
-        const currentSection = sections.find(section => {
-          if (!section.element) return false;
-          const rect = section.element.getBoundingClientRect();
-          return rect.top <= 100 && rect.bottom >= 100;
-        });
+      const currentSection = sections.find(section => {
+        if (!section.element) return false;
+        const rect = section.element.getBoundingClientRect();
+        return rect.top <= 100 && rect.bottom >= 100;
+      });
 
-        setActiveSection(currentSection ? currentSection.id : 'home');
-      } else if (location.pathname === '/cv') {
-        setActiveSection('cv');
+      const newSection = currentSection ? currentSection.id : 'home';
+      if (activeSection !== newSection) {
+        setActiveSection(newSection);
       }
-    };
+    } else if (location.pathname === '/cv' && activeSection !== 'cv') {
+      setActiveSection('cv');
+    }
+  }, [location.pathname, isScrolled, activeSection]);
 
-    window.addEventListener('scroll', handleScroll);
+  React.useEffect(() => {
+    const debouncedScroll = debounce(handleScroll, 10);
+    window.addEventListener('scroll', debouncedScroll, { passive: true });
     return () => {
-      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('scroll', debouncedScroll);
     };
-  }, [location.pathname]);
+  }, [handleScroll]);
 
-  const handleNavClick = (item: string) => {
+  const handleNavClick = useCallback((item: string) => {
     setIsOpen(false);
     if (item === 'Home') {
       if (location.pathname === '/') {
@@ -52,135 +59,112 @@ export const Navbar = () => {
       }
       return;
     }
-    
-    if (item === 'CV') {
-      navigate('/cv');
-      return;
-    }
 
-    if (location.pathname !== '/') {
-      navigate('/');
-      setTimeout(() => {
-        const element = document.getElementById(item.toLowerCase());
-        element?.scrollIntoView({ behavior: 'smooth' });
-      }, 100);
-    } else {
-      const element = document.getElementById(item.toLowerCase());
-      element?.scrollIntoView({ behavior: 'smooth' });
+    const element = document.getElementById(item.toLowerCase());
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
     }
-  };
+  }, [location.pathname, navigate]);
 
-  const getIsActive = (item: string) => {
-    if (item === 'Home' && location.pathname === '/' && activeSection === 'home') return true;
-    if (item === 'CV' && location.pathname === '/cv') return true;
-    if (location.pathname === '/' && activeSection === item.toLowerCase()) return true;
-    return false;
-  };
+  const navItems = useMemo(() => mainNavItems.map((item) => (
+    <motion.button
+      key={item}
+      onClick={() => handleNavClick(item)}
+      className={`px-3 py-2 rounded-md text-sm font-medium transition-colors duration-150 ${
+        activeSection === item.toLowerCase()
+          ? 'text-primary-400 dark:text-primary-400'
+          : 'text-gray-700 dark:text-gray-200 hover:text-primary-400 dark:hover:text-primary-400'
+      }`}
+      whileHover={{ scale: 1.05 }}
+      whileTap={{ scale: 0.95 }}
+      transition={{ type: "spring", stiffness: 400, damping: 17 }}
+    >
+      {item}
+    </motion.button>
+  )), [activeSection, handleNavClick]);
+
+  const menuButton = useMemo(() => (
+    <motion.button
+      onClick={() => setIsOpen(!isOpen)}
+      className="inline-flex items-center justify-center p-2 rounded-md text-gray-700 dark:text-gray-200 hover:text-primary-400 dark:hover:text-primary-400 focus:outline-none"
+      whileHover={{ scale: 1.05 }}
+      whileTap={{ scale: 0.95 }}
+      transition={{ type: "spring", stiffness: 400, damping: 17 }}
+    >
+      {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+    </motion.button>
+  ), [isOpen]);
 
   return (
-    <nav className={`fixed w-full z-50 transition-all duration-300 ${
-      isScrolled ? 'bg-white/80 dark:bg-gray-900/80 backdrop-blur-md border-b border-primary-50/20 dark:border-white/10' : 'bg-transparent'
-    }`}>
+    <nav
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        isScrolled ? 'bg-white/80 dark:bg-gray-900/80 backdrop-blur-md shadow-lg' : 'bg-transparent'
+      }`}
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
-          {/* Logo */}
-          <button 
-            onClick={() => handleNavClick('Home')}
-            className="flex-shrink-0 focus:outline-none"
-          >
-            <span className="text-2xl font-bold bg-gradient-to-r from-primary-400 to-secondary-400 bg-clip-text text-transparent">
+          <div className="flex-shrink-0">
+            <motion.button
+              onClick={() => handleNavClick('Home')}
+              className="text-2xl font-bold text-gray-900 dark:text-white"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
               BrainFlix
-            </span>
-          </button>
-
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center justify-center space-x-8">
-            {mainNavItems.map((item) => (
-              <button
-                key={item}
-                onClick={() => handleNavClick(item)}
-                className={`text-gray-700 dark:text-gray-200 hover:text-primary-400 dark:hover:text-primary-400 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-300 focus:outline-none ${
-                  getIsActive(item) ? 'text-primary-400 dark:text-primary-400 font-semibold' : ''
-                }`}
-              >
-                {item}
-              </button>
-            ))}
-            <button
-              onClick={() => handleNavClick('CV')}
-              className={`text-gray-700 dark:text-gray-200 hover:text-primary-400 dark:hover:text-primary-400 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-300 focus:outline-none ${
-                getIsActive('CV') ? 'text-primary-400 dark:text-primary-400 font-semibold' : ''
-              }`}
-            >
-              CV
-            </button>
+            </motion.button>
           </div>
-
-          {/* Theme toggle */}
-          <div className="hidden md:flex items-center">
-            <button
+          
+          <div className="hidden md:block">
+            <div className="ml-10 flex items-baseline space-x-4">
+              {navItems}
+            </div>
+          </div>
+          
+          <div className="flex items-center gap-4">
+            <motion.button
               onClick={toggleTheme}
-              className="p-2 rounded-lg bg-primary-50 dark:bg-gray-800 hover:bg-primary-100/80 dark:hover:bg-gray-700 transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-primary-400/20"
-              aria-label="Toggle theme"
+              className="p-2 rounded-md text-gray-700 dark:text-gray-200 hover:text-primary-400 dark:hover:text-primary-400 focus:outline-none"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              transition={{ type: "spring", stiffness: 400, damping: 17 }}
             >
-              {theme === 'dark' ? (
-                <Sun className="h-5 w-5 text-yellow-500" />
-              ) : (
-                <Moon className="h-5 w-5 text-primary-400" />
-              )}
-            </button>
-          </div>
-
-          {/* Mobile menu button */}
-          <div className="md:hidden">
-            <button
-              onClick={() => setIsOpen(!isOpen)}
-              className="text-gray-700 dark:text-gray-200 hover:text-primary-400 dark:hover:text-primary-400 focus:outline-none focus:ring-2 focus:ring-primary-400/20 p-2 rounded-lg"
-            >
-              {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-            </button>
+              {theme === 'dark' ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
+            </motion.button>
+            <div className="md:hidden">
+              {menuButton}
+            </div>
           </div>
         </div>
       </div>
 
-      {/* Mobile menu */}
-      {isOpen && (
-        <motion.div
-          initial={{ opacity: 0, y: -10 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -10 }}
-          className="md:hidden bg-white dark:bg-gray-900 shadow-lg border-t border-primary-50/20 dark:border-white/10"
-        >
-          <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-            {[...mainNavItems, 'CV'].map((item) => (
-              <button
-                key={item}
-                onClick={() => handleNavClick(item)}
-                className={`block w-full text-left px-3 py-2 rounded-md text-sm font-medium ${
-                  getIsActive(item)
-                    ? 'text-primary-400 dark:text-primary-400 bg-primary-50 dark:bg-gray-800 font-semibold'
-                    : 'text-gray-700 dark:text-gray-200 hover:text-primary-400 dark:hover:text-primary-400 hover:bg-primary-50/50 dark:hover:bg-gray-800/50'
-                }`}
-              >
-                {item}
-              </button>
-            ))}
-            <div className="flex space-x-2 px-3 py-2">
-              <button
-                onClick={toggleTheme}
-                className="p-2 rounded-lg bg-primary-50 dark:bg-gray-800 hover:bg-primary-100/80 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-primary-400/20"
-                aria-label="Toggle theme"
-              >
-                {theme === 'dark' ? (
-                  <Sun className="h-5 w-5 text-yellow-500" />
-                ) : (
-                  <Moon className="h-5 w-5 text-primary-400" />
-                )}
-              </button>
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            className="md:hidden"
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.2 }}
+          >
+            <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white dark:bg-gray-900 shadow-lg">
+              {navItems}
             </div>
-          </div>
-        </motion.div>
-      )}
+          </motion.div>
+        )}
+      </AnimatePresence>
     </nav>
   );
+});
+
+// Utility function for debouncing
+function debounce(func: (...args: any[]) => void, wait: number) {
+  let timeout: NodeJS.Timeout;
+  return function executedFunction(...args: any[]) {
+    const later = () => {
+      clearTimeout(timeout);
+      func(...args);
+    };
+    clearTimeout(timeout);
+    timeout = setTimeout(later, wait);
+  };
 };
